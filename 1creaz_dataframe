@@ -1,0 +1,25 @@
+import pandas as pd
+from faker import Faker
+import openpyxl
+
+fake = Faker()
+
+# Genera 10 dati di utenti in modo casuale
+utenti = []
+for _ in range(10):
+    utente = {
+        'nome': fake.first_name(),
+        'cognome': fake.last_name(),
+        'email': fake.email(),
+        'telefono': fake.phone_number()
+    }
+    utenti.append(utente)
+
+# Crea un DataFrame con tutti gli utenti
+df_utenti = pd.DataFrame(utenti)
+
+# Scrivi il DataFrame in un file Excel, specificando il foglio
+file_excel = 'dati_utenti.xlsx'
+df_utenti.to_excel(file_excel, index=False, sheet_name='Utenti')
+
+print(f"I dati sono stati scritti nel file {file_excel} nel foglio 'Utenti'")
