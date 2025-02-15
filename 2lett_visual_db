@@ -1,0 +1,19 @@
+import pandas as pd
+import sqlite3 
+
+#Lettura file Excel
+df = pd.read_excel('dati_utenti.xlsx')
+
+#Creazione connessione al database SQLite
+conn=sqlite3.connect('dati_utenti.db')
+
+#Creazione tabella SQL
+df.to_sql('utenti', conn, if_exists='replace', index=False)
+
+#Visualizzazione dati
+query="SELECT* FROM utenti"
+result=pd.read_sql(query, conn)
+print(result)
+
+#Chiusura connessione
+conn.close()
